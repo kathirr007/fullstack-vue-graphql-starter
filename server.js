@@ -1,43 +1,40 @@
-const { ApolloServer, gql } = require("apollo-server");
+const { ApolloServer } = require("apollo-server")
+const mongoose = require('mongoose')
+const fs = require('fs')
+const path = require('path')
 
-const todos = [
-  { task: "Wash car", completed: false },
-  { task: "Clean room", completed: true }
-];
+// Import typeDefs and resolvers
+const filePath = path.join(__dirname, 'typeDefs.gql')
+const typeDefs = fs.readFileSync(filePath, 'utf-8')
 
-const typeDefs = gql`
-  type Todo {
-    task: String
-    completed: Boolean
-  }
+// Import Environment variables and mongoose models
+require('dotenv').config({path: 'variables.env'})
+const User = require('./models/user')
+const Post = require('./models/post')
+const resolvers = require('./resolvers')
 
-  type Query {
-    getTodos: [Todo]
-  }
+// Connect to MongoDB Database
+mongoose
+  .connect(
+      process.env.MONGO_URI,
+      { 
+        useCreateIndex: true,
+        useNewUrlParser: true 
+      }
+    )
+  .then(() => console.log('DB Connected...'))
+  .catch(err => console.error(err))
 
-  type Mutation {
-    addTodo(task: String, completed: Boolean): Todo
-  }
-`;
-
-const resolvers = {
-  Query: {
-    getTodos: () => todos
-  },
-  Mutation: {
-    addTodo: (_, { task, completed }) => {
-      const todo = { task, completed };
-      todos.push(todo);
-      return todo;
-    }
-  }
-};
-
+  // Create Appollo/GraphQL Server using typeDefs, resolvers and context Object
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: {
+    User,
+    Post
+  }
 });
 
-server.listen(4500).then(({ url }) => {
+server.listen().then(({ url }) => {
   console.log(`Server listening on ${url}`);
 });

@@ -21,11 +21,7 @@
         interval="3000"
         hide-delimiters
       >
-        <v-carousel-item
-          v-for="post in posts"
-          :key="post._id"
-          :src="post.imageUrl"
-        >
+        <v-carousel-item v-for="post in posts" :key="post._id" :src="post.imageUrl">
           <h1 class="white--text text-xs-center carousel-title">
             {{ post.title }}
           </h1>

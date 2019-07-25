@@ -49,7 +49,18 @@
             <v-flex xs12>
               <v-select
                 :rules="categoriesRules"
-                :items="['Art', 'Education', 'Travel', 'Photography', 'Technology']"
+                :items="[
+                  'Art',
+                  'Education',
+                  'Travel',
+                  'Photography',
+                  'Technology',
+                  'Food',
+                  'Beauty',
+                  'Entertainment',
+                  'Social',
+                  'Movie'
+                ]"
                 multiple
                 v-model="categories"
                 label="Categories"
@@ -106,7 +117,7 @@ export default {
       description: "",
       titleRules: [
         title => !!title || "Title is required",
-        title => title.length > 20 || "Title must have at least 20 characters"
+        title => title.length > 10 || "Title must have at least 10 characters"
       ],
       imageRules: [image => !!image || "Image is required"],
       categoriesRules: [
@@ -114,12 +125,27 @@ export default {
       ],
       descRules: [
         desc => !!desc || "Description is required",
-        desc => desc.length > 200 || "Description must have at least 200 characters"
+        desc => desc.length > 100 || "Description must have at least 100 characters"
       ]
     };
   },
   computed: {
     ...mapGetters(["user", "error", "loading"])
+  },
+  methods: {
+    handleAddPost() {
+      if (this.$refs.form.validate()) {
+        // add Post action
+        this.$store.dispatch("addPost", {
+          title: this.title,
+          imageUrl: this.imageUrl,
+          categories: this.categories,
+          description: this.description,
+          creatorId: this.user._id
+        });
+        this.$router.push("/");
+      }
+    }
   }
 };
 </script>

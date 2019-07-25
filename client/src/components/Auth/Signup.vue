@@ -43,7 +43,7 @@
                     v-model="email"
                     :rules="emailRules"
                     label="Email"
-                    type="text"
+                    type="email"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -51,11 +51,13 @@
               <v-layout row wrap>
                 <v-flex xs12>
                   <v-text-field
-                    prepend-icon="extension"
+                    prepend-icon="lock"
+                    :append-icon="showPassword ? 'visibility' : 'visibility_off'"
                     v-model="password"
                     :rules="passwordRules"
                     label="Password"
-                    type="password"
+                    :type="showPassword ? 'text' : 'password'"
+                    @click:append="showPassword = !showPassword"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -108,6 +110,7 @@ export default {
       isFormValid: true,
       username: "",
       password: "",
+      showPassword: "",
       email: "",
       passwordConfirmation: "",
       usernameRules: [

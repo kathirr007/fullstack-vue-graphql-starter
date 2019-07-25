@@ -21,7 +21,12 @@
         interval="3000"
         hide-delimiters
       >
-        <v-carousel-item v-for="post in posts" :key="post._id" :src="post.imageUrl">
+        <v-carousel-item
+          @click.native="goToPost(post._id)"
+          v-for="post in posts"
+          :key="post._id"
+          :src="post.imageUrl"
+        >
           <h1 class="white--text text-xs-center carousel-title">
             {{ post.title }}
           </h1>
@@ -45,6 +50,9 @@ export default {
     handleGetPosts() {
       // reach out to Vuex store, fire action that gets posts for carousel
       this.$store.dispatch("getPosts");
+    },
+    goToPost(postId) {
+      this.$router.push(`/posts/${postId}`);
     }
   },
   computed: {

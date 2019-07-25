@@ -25,6 +25,32 @@ module.exports = {
             model: 'User'
           })
           return posts
+      },
+      getPost: async (_, { postId }, { Post }) => {
+        const post = await Post.findOne({ _id: postId }).populate({
+          path: 'messages.messageUser',
+          model: "User"
+        });
+        return post;
+      },
+      infiniteScrollPosts: async (_, { pageNum, pageSize }, { Post }) => {
+        let posts;
+        if (pageNum === 1) {
+          posts = await Post.find({  }).sort({ createdDate: 'desc' }).populate({
+            path: 'createdBy',
+            model: 'User'
+          }).limit(pageSize);
+        } else {
+          // If page number is greater than one, figure out how many documents to skip
+          const skip = pageSize * ( pageNum - 1 );
+          posts = await Post.find({  }).sort({ createdDate: 'desc' }).populate({
+            path: 'createdBy',
+            model: 'User'
+          }).skip(skip).limit(pageSize);
+        }
+        const totalDocs = await Post.countDocuments();
+        const hasMore = totalDocs > pageSize * pageNum;
+        return { posts, hasMore };
       }
     },
     Mutation: {
@@ -41,6 +67,25 @@ module.exports = {
           createdBy: creatorId
         }).save();
         return newPost;
+      },
+
+      addPostMessage: async (_, { messageBody, userId, postId }, { Post }) => {
+        const newMessage = {
+          messageBody,
+          messageUser: userId
+        };
+        const post = await Post.findOneAndUpdate(
+          // find post by id
+          { _id: postId },
+          // prepend new message to beginning of the message array
+          { $push: { messages: { $each: [newMessage], $position: 0 } } },
+          // return fresh document after update
+          { new: true }
+        ).populate({
+          path: "messages.messageUser",
+          model: "User"
+        });
+        return post.messages[0];
       },
 
       signinUser: async (_, { username, password }, { User }) => {

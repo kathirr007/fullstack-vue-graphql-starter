@@ -69,20 +69,22 @@
           <v-icon left class="hidden-sm-only">{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <!-- Profile button -->
-        <v-btn flat to="/profile" v-if="user">
-          <v-icon class="hidden-sm-and-down" left>account_box</v-icon>
-          <v-badge right color="cyan lighten-1">
-            <!-- <span slot="badge">1</span> -->
-            Profile
-          </v-badge>
-        </v-btn>
-
-        <v-btn flat v-if="user" @click="handleSignoutUser">
-          <v-icon class="hidden-sm-and-down" left>exit_to_app</v-icon>
-          Signout
-        </v-btn>
-        <!-- Signout Button -->
+        <!-- On user logge In -->
+        <template v-if="user">
+          <!-- Profile button -->
+          <v-btn flat to="/profile">
+            <v-icon class="hidden-sm-and-down" left>account_box</v-icon>
+            <v-badge right color="cyan lighten-1">
+              <!-- <span slot="badge">1</span> -->
+              Profile
+            </v-badge>
+          </v-btn>
+          <!-- Signout Button -->
+          <v-btn flat @click="handleSignoutUser">
+            <v-icon class="hidden-sm-and-down" left>exit_to_app</v-icon>
+            Signout
+          </v-btn>
+        </template>
       </v-toolbar-items>
     </v-toolbar>
     <!-- App content -->

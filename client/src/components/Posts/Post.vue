@@ -92,16 +92,16 @@
 </template>
 
 <script>
-import { GET_POST } from "../../queries";
-import { mapGetters } from "vuex";
+import { GET_POST } from '../../queries'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "Post",
-  props: ["postId"],
+  name: 'Post',
+  props: ['postId'],
   data() {
     return {
       dialog: false
-    };
+    }
   },
   apollo: {
     getPost: {
@@ -109,24 +109,24 @@ export default {
       variables() {
         return {
           postId: this.postId
-        };
+        }
       }
     }
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(['user'])
   },
   methods: {
     goToPrevPage() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     toggleImageDialog() {
       if (window.innerWidth > 500) {
-        this.dialog = !this.dialog;
+        this.dialog = !this.dialog
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

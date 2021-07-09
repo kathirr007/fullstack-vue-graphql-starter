@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost'
 
 /* Posts Queries */
 export const GET_POSTS = gql`
@@ -9,7 +9,7 @@ export const GET_POSTS = gql`
       imageUrl
     }
   }
-`;
+`
 
 export const GET_POST = gql`
   query($postId: ID!) {
@@ -33,7 +33,7 @@ export const GET_POST = gql`
       }
     }
   }
-`;
+`
 
 /* User Queries */
 export const GET_CURRENT_USER = gql`
@@ -51,7 +51,7 @@ export const GET_CURRENT_USER = gql`
       }
     }
   }
-`;
+`
 
 export const INFINITE_SCROLL_POSTS = gql`
   query($pageNum: Int!, $pageSize: Int!) {
@@ -76,7 +76,7 @@ export const INFINITE_SCROLL_POSTS = gql`
       }
     }
   }
-`;
+`
 
 /* Posts Mutations */
 export const ADD_POST = gql`
@@ -101,7 +101,7 @@ export const ADD_POST = gql`
       categories
     }
   }
-`;
+`
 
 export const ADD_POST_MESSAGE = gql`
   mutation($messageBody: String!, $userId: ID!, $postid: ID!) {
@@ -116,7 +116,7 @@ export const ADD_POST_MESSAGE = gql`
       }
     }
   }
-`;
+`
 
 /* User Mutations */
 export const SIGNIN_USER = gql`
@@ -125,11 +125,11 @@ export const SIGNIN_USER = gql`
       token
     }
   }
-`;
+`
 export const SIGNUP_USER = gql`
   mutation($username: String!, $email: String!, $password: String!) {
     signupUser(username: $username, email: $email, password: $password) {
       token
     }
   }
-`;
+`

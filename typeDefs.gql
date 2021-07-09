@@ -27,9 +27,21 @@ type Message {
   messageUser: User!
 }
 
+type PostsPage {
+  posts: [Post]
+  hasMore: Boolean
+}
+
 type Query {
   getUser: User
+  getCurrentUser: User
   getPosts: [Post]
+  getPost(postId: ID!): Post!
+  infiniteScrollPosts(pageNum: Int!, pageSize: Int!): PostsPage
+}
+
+type Token {
+  token: String!
 }
 
 type Mutation {
@@ -40,5 +52,9 @@ type Mutation {
     description: String!
     creatorId: ID!
   ): Post!
-  signupUser(username: String!, email: String!, password: String!): User!
+  addPostMessage(messageBody: String!, userId: ID!, postId: ID!): Message!
+
+  signinUser(username: String!, password: String!): Token
+
+  signupUser(username: String!, email: String!, password: String!): Token
 }

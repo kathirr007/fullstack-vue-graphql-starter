@@ -85,30 +85,30 @@
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
   components: {},
   data() {
     return {
       sideNav: false
-    };
+    }
   },
   computed: {
     horizontalNavItems() {
       return [
-        { icon: "chat", title: "Posts", link: "/posts" },
-        { icon: "lock_open", title: "Sign In", link: "/signin" },
-        { icon: "create", title: "Sign Up", link: "/signup" }
-      ];
+        { icon: 'chat', title: 'Posts', link: '/posts' },
+        { icon: 'lock_open', title: 'Sign In', link: '/signin' },
+        { icon: 'create', title: 'Sign Up', link: '/signup' }
+      ]
     },
     sideNavItems() {
       return [
-        { icon: "chat", title: "Posts", link: "/posts" },
-        { icon: "lock_open", title: "Sign In", link: "/signin" },
-        { icon: "create", title: "Sign Up", link: "/signup" }
-      ];
+        { icon: 'chat', title: 'Posts', link: '/posts' },
+        { icon: 'lock_open', title: 'Sign In', link: '/signin' },
+        { icon: 'create', title: 'Sign Up', link: '/signup' }
+      ]
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

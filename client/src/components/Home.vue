@@ -38,17 +38,17 @@
 <script>
 // import { gql } from "apollo-boost";
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "Home",
+  name: 'Home',
   created() {
-    this.handleGetPosts();
+    this.handleGetPosts()
   },
   methods: {
     handleGetPosts() {
       // reach out to Vuex store, fire action that gets posts for carousel
-      this.$store.dispatch("getPosts");
+      this.$store.dispatch('getPosts')
     }
   },
   computed: {
@@ -58,9 +58,9 @@ export default {
     loading() {
       return this.$store.getters.loading;
     } */
-    ...mapGetters(["loading", "posts"])
+    ...mapGetters(['loading', 'posts'])
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

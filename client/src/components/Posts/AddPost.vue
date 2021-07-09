@@ -1,15 +1,13 @@
 <template>
-    <div class="add-post">
-        <h1>Add Post</h1>
-    </div>
+  <div class="add-post">
+    <h1>Add Post</h1>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: 'AddPost'
-    }
+export default {
+  name: 'AddPost',
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
